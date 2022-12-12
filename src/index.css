@@ -1,3 +1,4 @@
+
 .text-center{
   text-align: center;
 }
@@ -25,8 +26,9 @@
   width: 100%;
   padding: 2%;
   font-weight: bold;
+  font-size:medium;
   border-radius: 10px;
-  background: darkturquoise;
+  background: #ffd670;
   border: none;
   margin-top: 10%;
 }
@@ -35,9 +37,11 @@
 .calculate{
   width: 100%;
   padding: 2%;
+  margin-top: 5%;
   font-weight: bold;
+  font-size:medium;
   border-radius: 10px;
-  background: darkturquoise;
+  background: #ffd670;
   border: none;
 }
 
@@ -77,4 +81,15 @@
 
 table, th, td {
   border: 1px solid black;
+}
+
+.coppee{
+  background-color: #ffd670;
+  margin-left: 5%;
+  margin-top: 5%;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size:small;
 }

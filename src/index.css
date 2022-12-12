@@ -1,13 +1,80 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.text-center{
+  text-align: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container{
+  width: 90%;
+  margin-left: 5%;
+}
+
+.select{
+  padding: 2%;
+  margin-bottom: 5%;
+}
+
+#stars div{
+  margin-top: 2%;
+}
+
+.showing{
+  display: flex;
+  justify-content: space-between;
+}
+
+.getHotels{
+  width: 100%;
+  padding: 2%;
+  font-weight: bold;
+  border-radius: 10px;
+  background: darkturquoise;
+  border: none;
+  margin-top: 10%;
+}
+
+
+.calculate{
+  width: 100%;
+  padding: 2%;
+  font-weight: bold;
+  border-radius: 10px;
+  background: darkturquoise;
+  border: none;
+}
+
+.addHotel{
+  margin-bottom: 1em;
+}
+
+.backBtn{
+  background: none;
+  border: none;
+}
+
+.calForm div{
+  margin: 6% 4%;
+}
+.calForm input{
+  width:115px;
+  margin-left: 2%;
+}
+
+.d-none{
+  display: none;
+}
+
+.getNos {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2em;
+}
+.getNos  div{
+  margin-top: 1em;
+}
+
+.text-center{
+  text-align: center;
+}
+
+table, th, td {
+  border: 1px solid black;
 }

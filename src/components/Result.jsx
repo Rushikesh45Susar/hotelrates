@@ -9,21 +9,21 @@ const Result = () => {
     Array.from(data).forEach(item => {
         if (item.mealplan === 1) {
             let meeaal = "Breakfast Included";
-            let couple = item.couples * item.hotel[0].MAP_double;
-            let adult = item.adult * item.hotel[0].Adult_MAP;
-            let child = item.child * item.hotel[0].Child_MAP;
+            let couple = item.couples * item.hotel[0].MAP_double * item.nights ;
+            let adult = item.adult * item.hotel[0].Adult_MAP * item.nights;
+            let child = item.child * item.hotel[0].Child_MAP * item.nights;
             let hotelName = item.hotel[0].Hotel_Name;
-            let calculation = (couple + adult + child) * item.nights;
+            let calculation = couple + adult + child;
 
             const arr = { meeaal: meeaal, couple: couple, adult: adult, child: child, hotelName: hotelName, result: calculation, nights : item.nights , d1 : item.d1 , d2 : item.d2 };
             result.push(arr);
         } else {
             let meeaal = "Breakfast Excluded";
-            let couple = item.couples * item.hotel[0].CP_double;
-            let adult = item.adult * item.hotel[0].Adult_CP;
-            let child = item.child * item.hotel[0].Child_CP;
+            let couple = item.couples * item.hotel[0].CP_double * item.nights;
+            let adult = item.adult * item.hotel[0].Adult_CP * item.nights;
+            let child = item.child * item.hotel[0].Child_CP * item.nights;
             let hotelName = item.hotel[0].Hotel_Name;
-            let calculation = (couple + adult + child) * item.nights;
+            let calculation = couple + adult + child;
 
             const arr = { meeaal: meeaal, couple: couple, adult: adult, child: child, hotelName: hotelName, result: calculation , nights : item.nights , d1 : item.d1 , d2 : item.d2};
             result.push(arr);

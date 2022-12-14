@@ -26,8 +26,8 @@ const Home = () => {
     };
 
     const couples = useInput("1");
-    const adult = useInput("1");
-    const child = useInput("1");
+    const adult = useInput("0");
+    const child = useInput("0");
 
     const date1 = useInput();
     const date2 = useInput();
@@ -99,7 +99,7 @@ const Home = () => {
 
     return (
         <>
-            <h3 className="text-center">Hotel Rates Calculator</h3>
+            <h3 className="text-center">Quotation Calculator</h3>
             <div className='getNos'>
                 <div className='showing'>
                     <label for="cpl">No. of couples: </label><input disabled={bool} name="couple" id="cpl" type="number" {...couples} />

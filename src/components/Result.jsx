@@ -41,10 +41,10 @@ const Result = () => {
     const total = getTotal();
 
     const copytext = () => {
-        alert("Copied to Clipboard");
         var copytext = document.getElementById('copy');
         var text = copytext.innerText ;
         navigator.clipboard.writeText(text);
+        alert("Copied to Clipboard");
     }
     
     return (

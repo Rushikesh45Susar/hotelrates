@@ -99,7 +99,7 @@ const Home = () => {
 
     return (
         <>
-            <h3 className="text-center">Quotation Calculator</h3>
+            <h3 className="text-center">Quotation Calculator - Adwait</h3>
             <div className='getNos'>
                 <div className='showing'>
                     <label for="cpl">No. of couples: </label><input disabled={bool} name="couple" id="cpl" type="number" {...couples} />
@@ -114,21 +114,25 @@ const Home = () => {
             </div>
             <div className={`container ${Data.length === 0 ? "d-none" : ""}`}>
                 <h2>Hotels Added</h2>
-                <table style={{width:"100%"}}>
-                    <tr>
-                        <th>Hotel Name </th>
-                        <th>Nights</th>
-                        <th>Meal Plan</th>
-                    </tr>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Hotel Name </th>
+                            <th>Nights</th>
+                            <th>Meal Plan</th>
+                        </tr>
+                    </thead>
                 {
                     Array.from(Data).map(item => {
                         return(
                             <>
-                            <tr>
-                                <td className='text-center' >{item.hotel[0].Hotel_Name}</td>
-                                <td className='text-center' >{item.nights}</td>
-                                <td className='text-center' >{parseInt(item.mealplan) === 1 ? "MAP" : "CP"}</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td className='text-center' >{item.hotel[0].Hotel_Name}</td>
+                                    <td className='text-center' >{item.nights}</td>
+                                    <td className='text-center' >{parseInt(item.mealplan) === 1 ? "MAP" : "CP"}</td>
+                                </tr>
+                            </tbody>
                             </>
                         );
                     })

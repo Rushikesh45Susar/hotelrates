@@ -135,3 +135,7 @@ table, th, td {
 .icon{
   font-size: 25px;
 }
+
+#vehicle{
+  width: 50%;
+}

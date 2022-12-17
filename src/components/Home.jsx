@@ -14,6 +14,8 @@ const Home = () => {
     const [stateName, setstateName] = useState("");
     const [Data, setData] = useState([]);
     const [mealPlan, setmealPlan] = useState(1);
+    const [vehicle, setvehicle] = useState(0);
+    const [totalDays, settotalDays] = useState(0);
     const useInput = (initialValue) => {
         const [value, setValue] = useState(initialValue);
         const handleChange = (event) => {
@@ -55,6 +57,9 @@ const Home = () => {
         if (couples.value === "" || adult.value === "" || child.value === "") {
             alert("Please fill the values for couples , adults and child first !");
             return;
+        }else if(parseInt(couples.value) === 0){
+            alert("Value for couples can not be 0");
+            return;
         }
         if (!bool) {
             setbool(true);
@@ -90,6 +95,7 @@ const Home = () => {
         var Difference_In_Time = d2.getTime() - d1.getTime();
         // To calculate the no. of days between two dates
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        settotalDays(totalDays + Difference_In_Days) ;
         const data = { hotel: hotels.filter(item => item.Id === parseInt(hotelId)), couples: parseInt(couples.value), adult: parseInt(adult.value), child: parseInt(child.value), mealplan: mealPlan, nights: Difference_In_Days , d1 : date1.value , d2: date2.value }
         Data.push(data);
         setdisplay({ hotelcall: "", cal: "d-none", noHotel: false })
@@ -104,13 +110,20 @@ const Home = () => {
             <h3 className="text-center">Quotation Calculator - Adwait</h3>
             <div className='getNos'>
                 <div className='showing'>
-                    <label for="cpl">No. of couples: </label><input disabled={bool} name="couple" id="cpl" type="number" {...couples} />
+                    <label htmlFor="cpl">No. of couples: </label><input name="couple" id="cpl" type="number" {...couples} />
                 </div>
                 <div className='showing'>
-                    <label for="exadult">Extra Adult :</label><input disabled={bool} name="adult" id="exadult" type="number" {...adult} />
+                    <label htmlFor="exadult">Extra Adult :</label><input name="adult" id="exadult" type="number" {...adult} />
                 </div>
                 <div className='showing'>
-                    <label for="child">Child :</label> <input disabled={bool} name="child" id="child" type="number" {...child} />
+                    <label htmlFor="child">Child :</label> <input name="child" id="child" type="number" {...child} />
+                </div>
+                <div className="showing">
+                    <label htmlFor="vehicle">Vehicle :</label> 
+                    <select name="vehicle" id="vehicle" onChange={(e)=>{setvehicle(parseInt(e.target.value))}} disabled={bool} >
+                        <option value={0}>No vehicle</option>
+                        <option value={100}>Sedan</option>
+                    </select>
                 </div>
                 <br />
             </div>
@@ -140,7 +153,7 @@ const Home = () => {
                     })
                 }
                 </table>
-                <Link to="/result" state={{data:Data}} >
+                <Link to="/result" state={{data:Data , vehicle : vehicle * totalDays }} >
                     <button className="calculate">Calculate</button>
                 </Link>
                 <br />  

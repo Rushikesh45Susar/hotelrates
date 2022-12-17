@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRotateLeft , faCar } from '@fortawesome/free-solid-svg-icons';
 
 const Result = () => {
     const location = useLocation();
     const data = location.state.data;
+    const vehicle = location.state.vehicle ;
     const [result, setresult] = useState([]);
     
     const goBack = () => window.history.back();
@@ -61,9 +62,9 @@ const Result = () => {
               Greetings from 'Adwait Tours', your tour details are:
             </h4>
         
-            <div>No. of couples:{data[0].couples}</div>   
+            {/* <div>No. of couples:{data[0].couples}</div>   
             <div>Extra adult   :{data[0].adult}</div>
-            <div>No. of childs :{data[0].child}</div>
+            <div>No. of childs :{data[0].child}</div> */}
             <br />
             {
                 Array.from(result).map(item =>{
@@ -83,7 +84,11 @@ const Result = () => {
                 })
             }
             <br />
-            &#128181; Total Tour Package:&#8377; {total}/- only
+
+            <FontAwesomeIcon icon={faCar} /> Vehicle Cost : {vehicle} 
+            <br />
+            <br />
+            &#128181; Total Tour Package:&#8377; {total} + {vehicle} = {total + vehicle} /- only
             <br /><br />
             Thank You!
         </div>

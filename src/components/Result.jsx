@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Result = () => {
     const location = useLocation();
     const data = location.state.data;
     const [result, setresult] = useState([]);
-    console.log(result);
+    
+    const goBack = () => window.history.back();
+
     Array.from(data).forEach(item => {
         if (item.mealplan === 1) {
             let meeaal = "Breakfast Included";
@@ -49,6 +53,9 @@ const Result = () => {
     
     return (
         <>
+        <div onClick={()=>{goBack()}} style={{display:'flex' , alignItems:'center'}} >
+            <FontAwesomeIcon  className='icon' icon={faArrowRotateLeft} /> &nbsp; &nbsp; <h4>Restart</h4>
+        </div>
         <div className="container" id='copy'>
             <h4>
               Greetings from 'Adwait Tours', your tour details are:
@@ -80,7 +87,7 @@ const Result = () => {
             <br /><br />
             Thank You!
         </div>
-        <button class="coppee" onClick={()=>{copytext()}}>Copy Text</button>
+        <button className="coppee" onClick={()=>{copytext()}}>Copy Text</button>
         </>
     )
 }

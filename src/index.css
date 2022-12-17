@@ -37,6 +37,7 @@
 .calculate{
   width: 100%;
   padding: 2%;
+  margin: 1%;
   margin-top: 5%;
   font-weight: bold;
   font-size:medium;
@@ -131,3 +132,6 @@ table, th, td {
   color: #009879;
 }
 
+.icon{
+  font-size: 25px;
+}

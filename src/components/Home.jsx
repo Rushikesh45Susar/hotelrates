@@ -77,7 +77,9 @@ const Home = () => {
             setdisplay({ hotelcall: "d-none", cal: "", noHotel: false })
         }
     }
-
+    const cancel = () => {
+        setdisplay({ hotelcall: "", cal: "d-none", noHotel: false })
+    }
     const addHotel = () => {
         const dates1 = date1.value.split('-');
         const newDates1 = `${dates1[1]}/${dates1[2]}/${dates1[0]}`;
@@ -231,7 +233,10 @@ const Home = () => {
                             </select>
                         </div>
                         <br />
-                        <button className="calculate addHotel" type="submit" >Add Hotel </button>
+                        <div style={{display:'flex'}}>
+                            <button className="calculate addHotel" type='button' onClick={()=>{cancel()}}  >Cancel</button>
+                            <button className="calculate addHotel" type="submit" >Add Hotel </button>
+                        </div>
                     </form>
                     <br />
                 </div>

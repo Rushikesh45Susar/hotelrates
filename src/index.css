@@ -55,8 +55,15 @@
   border: none;
 }
 
-.calForm div{
+.calForm .child{
   margin: 6% 4%;
+}
+
+.datediv{
+  margin: 6% 4%;
+}
+.react-datepicker-wrapper{
+  width: auto !important;
 }
 .calForm input{
   width:115px;
@@ -67,6 +74,9 @@
   display: none;
 }
 
+.d-flex{
+  display: flex;
+}
 .getNos {
   width: 90%;
   margin-left: 5%;

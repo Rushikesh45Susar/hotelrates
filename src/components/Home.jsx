@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ReactDatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const Home = () => {
     const [first, setfirst] = useState(true);
@@ -16,6 +18,11 @@ const Home = () => {
     const [mealPlan, setmealPlan] = useState(1);
     const [vehicle, setvehicle] = useState(0);
     const [totalDays, settotalDays] = useState(0);
+    const [date1, setdate1] = useState(new Date());
+    const [date2, setdate2] = useState(date1);
+    const [miniDate, setminiDate] = useState(new Date());
+    const [vehicleName, setvehicleName] = useState("");
+
     const useInput = (initialValue) => {
         const [value, setValue] = useState(initialValue);
         const handleChange = (event) => {
@@ -30,9 +37,8 @@ const Home = () => {
     const couples = useInput("1");
     const adult = useInput("0");
     const child = useInput("0");
+    const extras = useInput(0);
 
-    const date1 = useInput();
-    const date2 = useInput();
     const getState = async () => {
         const res = await fetch("/getstate");
         const data = await res.json();
@@ -86,25 +92,22 @@ const Home = () => {
         setdisplay({ hotelcall: "", cal: "d-none", noHotel: false })
     }
     const addHotel = () => {
-        const dates1 = date1.value.split('-');
-        const newDates1 = `${dates1[1]}/${dates1[2]}/${dates1[0]}`;
-        const dates2 = date2.value.split('-');
-        const newDates2 = `${dates2[1]}/${dates2[2]}/${dates2[0]}`;
-        const d1 = new Date(newDates1);
-        const d2 = new Date(newDates2);
+        const d1 = new Date(`${date1.getMonth()}/${date1.getDate()}/${date1.getFullYear()}`);
+        const d2 = new Date(`${date2.getMonth()}/${date2.getDate()}/${date2.getFullYear()}`);
         var Difference_In_Time = d2.getTime() - d1.getTime();
         // To calculate the no. of days between two dates
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         settotalDays(totalDays + Difference_In_Days) ;
-        const data = { hotel: hotels.filter(item => item.Id === parseInt(hotelId)), couples: parseInt(couples.value), adult: parseInt(adult.value), child: parseInt(child.value), mealplan: mealPlan, nights: Difference_In_Days , d1 : date1.value , d2: date2.value }
+        const data = { hotel: hotels.filter(item => item.Id === parseInt(hotelId)), mealplan: mealPlan, nights: Difference_In_Days , d1 : `${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}` , d2: `${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}` , city : cityName }
         Data.push(data);
+        setdate1(date2)
+        setminiDate(date2);
         setdisplay({ hotelcall: "", cal: "d-none", noHotel: false })
     }
-    console.log(Data);
+
     useEffect(() => {
         getState();
     }, [])
-
     return (
         <>
             <h3 className="text-center">Quotation Calculator - Adwait</h3>
@@ -120,10 +123,13 @@ const Home = () => {
                 </div>
                 <div className="showing">
                     <label htmlFor="vehicle">Vehicle :</label> 
-                    <select name="vehicle" id="vehicle" onChange={(e)=>{setvehicle(parseInt(e.target.value))}} disabled={bool} >
+                    <select name="vehicle" id="vehicle" onChange={(e)=>{ var index = e.nativeEvent.target.selectedIndex; setvehicleName(e.nativeEvent.target[index].text); setvehicle(parseInt(e.target.value))}} disabled={bool} >
                         <option value={0}>No vehicle</option>
                         <option value={100}>Sedan</option>
                     </select>
+                </div>
+                <div className='showing'>
+                    <label htmlFor="extras">Extra Ammount :</label> <input name="extras" id="extras" type="number" {...extras} />
                 </div>
                 <br />
             </div>
@@ -153,7 +159,7 @@ const Home = () => {
                     })
                 }
                 </table>
-                <Link to="/result" state={{data:Data , vehicle : vehicle * totalDays }} >
+                <Link to="/result" state={{data:Data , vehicle : vehicle * totalDays , couples: parseInt(couples.value), adult: parseInt(adult.value), child: parseInt(child.value), extras : parseInt(extras.value) , vehicleName : vehicleName}} >
                     <button className="calculate">Calculate</button>
                 </Link>
                 <br />  
@@ -218,7 +224,7 @@ const Home = () => {
                 </div>
                 <div className={`${display.noHotel ? "d-none" : ""} calForm `}>
                     <form onSubmit={(e) => { e.preventDefault(); addHotel() }}>
-                        <div>
+                        <div className='child'>
                             <label for="hotel">Hotel :</label>
                             <select onChange={(e) => { sethotelId(e.target.value) }} name="MyHotel" id="hotel">
                                 {
@@ -232,13 +238,13 @@ const Home = () => {
                                 }
                             </select>
                         </div>
-                        <div>
-                            <label for="staDate"> Check In :</label><input {...date1} name="stdt" id="staDate" type="date" required />
+                        <div className='datediv'> Check In :
+                            <ReactDatePicker selected={date1} onChange={(date) => {setdate1(date); date2.setDate(date.getDate() + 1)}}   minDate={miniDate}/>
                         </div>
-                        <div>
-                            <label for="enDate">Check Out :</label><input {...date2} name="endt" id="enDate" type="date" required />
+                        <div className='datediv'>Check Out :
+                            <ReactDatePicker selected={date2} onChange={(date) => setdate2(date)} minDate={date1}/>
                         </div>
-                        <div>
+                        <div className='child'>
                             <label for="meals">Meal Plan :</label>
                             <select onChange={(e)=>{setmealPlan(e.target.value)}} name="meals" id="meal">
                                 <option value="1">MAP</option>
@@ -246,7 +252,7 @@ const Home = () => {
                             </select>
                         </div>
                         <br />
-                        <div style={{display:'flex'}}>
+                        <div className='child'  style={{display:'flex'}}>
                             <button className="calculate addHotel" type='button' onClick={()=>{cancel()}}  >Cancel</button>
                             <button className="calculate addHotel" type="submit" >Add Hotel </button>
                         </div>

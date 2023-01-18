@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 })); 
 
 app.get('/getstate/' , function(req , res) {
-    db.query("SELECT DISTINCT State_Id, State_Name FROM city" , function(err , result , data){
+    db.query("SELECT DISTINCT state_id, state_name FROM city" , function(err , result , data){
         if(err){
             throw err ;
         }else{
@@ -33,35 +33,53 @@ app.get('/getstate/' , function(req , res) {
     })
 })
 app.get('/getCity/:id/' , function (req , res) {
-    db.query("SELECT Id , City_Name FROM city WHERE city.State_Id=?" , [req.params.id] , function (err , result , data) {
-        if(err){
-            throw err ;
-        }else{
-            res.send(result);
+   
+    const query = {
+        // give the query a unique name
+        name: 'fetch-city',
+        text: 'SELECT id , city_name FROM city WHERE city.state_id= $1',
+        values: [req.params.id],
+      }
+       
+      // callback
+      db.query(query, (err, result) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+          res.send(result)
         }
-    } );
-    console.log("Get city called");
+      })
 })
 
 app.get('/getHotels/:id/:rating' , function (req , res){
     if(req.params.rating === '1'){
-        db.query("SELECT * FROM hotel WHERE hotel.City_Id = ?" , [req.params.id] , function(err , result , data){
-            if(err){
-                throw err;
-            }
-            else{
-                res.send(result);
+        const query = {
+            name: 'fetch-hotel-with-all',
+            text: 'SELECT * FROM hotel WHERE hotel.city_id = $1',
+            values: [req.params.id],
+        }
+        db.query(query, (err, result) => {
+            if (err) {
+              console.log(err.stack)
+            } else {
+              res.send(result)
             }
         })
     }else{
-        db.query("SELECT * FROM hotel WHERE hotel.City_Id = ? AND hotel.Rating = ?" , [req.params.id , req.params.rating] , function(err , result , data){
-            if(err){
-                throw err;
+        const query = {
+            name: 'fetch-hotel-with-rating',
+            text: 'SELECT * FROM hotel WHERE hotel.city_id = $1 AND hotel.rating = $2',
+            values: [req.params.id , req.params.rating],
+          }
+           
+          // callback
+          db.query(query, (err, result) => {
+            if (err) {
+              console.log(err.stack)
+            } else {
+              res.send(result)
             }
-            else{
-                res.send(result);
-            }
-        })
+          })
     }
     console.log("Get Hotel called");
 })

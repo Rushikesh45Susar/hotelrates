@@ -1,17 +1,12 @@
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : "localhost",
-  user     : "root",
-  password : "",
-  database : "adwait"
-});
-connection.connect(function(err) {
-    if (err){
-      console.log(err);
-      //throw err;
-    } else {
-      console.log('DB connected :)');
-    }
+const { Client } = require('pg')
+const client = new Client({
+  user: 'rrglvvms',
+  host: 'rosie.db.elephantsql.com',
+  password: 'YGJ41kYvYiLmtXsdCBo0ky2g2cQO3H8X',
+})
+client.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
 });
 
-module.exports = connection;
+module.exports = client ;

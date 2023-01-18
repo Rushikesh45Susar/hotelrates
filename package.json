@@ -10,10 +10,12 @@
   "author": "Rushikesh Susar",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "mysql": "^2.18.1"
   },
   "engines": {
-    "node":"14.21.1",
-    "npm":"7.24.2"
+    "node": "14.21.1",
+    "npm": "7.24.2"
   }
 }

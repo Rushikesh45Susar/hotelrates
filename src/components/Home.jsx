@@ -42,7 +42,7 @@ const Home = () => {
     const getState = async () => {
         const res = await fetch("/getstate");
         const data = await res.json();
-        setstate(data);
+        setstate(data.rows);
         if (first) {
             getCity(1);
             setfirst(false);
@@ -52,12 +52,12 @@ const Home = () => {
     const getCity = async (id) => {
         const res = await fetch(`/getCity/${id}`);
         const data = await res.json();
-        setcity(data);
+        console.log(data);
+        setcity(data.rows);
         var e = document.getElementById("state");
         var text = e.options[e.selectedIndex].text;
         setstateName(text);
     }
-
     const getHotels = async () => {
         var cityid = document.getElementById('city');
         if (couples.value === "" || adult.value === "" || child.value === "") {
@@ -73,16 +73,16 @@ const Home = () => {
         const res = await fetch(`/getHotels/${cityid.value}/${rating}`);
         const data = await res.json();
         const cityname = city.filter(item => {
-            return parseInt(item.Id) === parseInt(cityid.value);
+            return parseInt(item.id) === parseInt(cityid.value);
         })
-        setcityName(cityname[0].City_Name);
-        sethotels(data);
+        setcityName(cityname[0].city_name);
+        sethotels(data.rows);
         setTimeout(() => {
             var e = document.getElementById("hotel");
             var id = e.options[e.selectedIndex].value;
             sethotelId(id);
         }, 2000);
-        if (data.length === 0) {
+        if (data.rows.length === 0) {
             setdisplay({ hotelcall: "d-none", cal: "", noHotel: true })
         } else {
             setdisplay({ hotelcall: "d-none", cal: "", noHotel: false })
@@ -92,13 +92,14 @@ const Home = () => {
         setdisplay({ hotelcall: "", cal: "d-none", noHotel: false })
     }
     const addHotel = () => {
-        const d1 = new Date(`${date1.getMonth()}/${date1.getDate()}/${date1.getFullYear()}`);
-        const d2 = new Date(`${date2.getMonth()}/${date2.getDate()}/${date2.getFullYear()}`);
+        console.log(hotelId);
+        const d1 = new Date(`${date1.getMonth()+1}/${date1.getDate()}/${date1.getFullYear()}`);
+        const d2 = new Date(`${date2.getMonth()+1}/${date2.getDate()}/${date2.getFullYear()}`);
         var Difference_In_Time = d2.getTime() - d1.getTime();
-        // To calculate the no. of days between two dates
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        console.log(Difference_In_Days);
         settotalDays(totalDays + Difference_In_Days) ;
-        const data = { hotel: hotels.filter(item => item.Id === parseInt(hotelId)), mealplan: mealPlan, nights: Difference_In_Days , d1 : `${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}` , d2: `${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}` , city : cityName }
+        const data = { hotel: hotels.filter(item => item.id === parseInt(hotelId)), mealplan: mealPlan, nights: Difference_In_Days , d1 : `${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}` , d2: `${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}` , city : cityName }
         Data.push(data);
         setdate1(date2)
         setminiDate(date2);
@@ -149,7 +150,7 @@ const Home = () => {
                             <>
                             <tbody>
                                 <tr>
-                                    <td className='text-center' >{item.hotel[0].Hotel_Name}</td>
+                                    <td className='text-center' >{item.hotel[0].hotel_name}</td>
                                     <td className='text-center' >{item.nights}</td>
                                     <td className='text-center' >{parseInt(item.mealplan) === 1 ? "MAP" : "CP"}</td>
                                 </tr>
@@ -174,7 +175,7 @@ const Home = () => {
                             Array.from(state).map(item => {
                                 return (
                                     <>
-                                        <option value={item.State_Id} >{item.State_Name}</option>
+                                        <option value={item.state_id} >{item.state_name}</option>
                                     </>
                                 )
                             })
@@ -188,7 +189,7 @@ const Home = () => {
                             Array.from(city).map(item => {
                                 return (
                                     <>
-                                        <option value={item.Id} >{item.City_Name}</option>
+                                        <option value={item.id} >{item.city_name}</option>
                                     </>
                                 )
                             })
@@ -231,7 +232,7 @@ const Home = () => {
                                     Array.from(hotels).map(item => {
                                         return (
                                             <>
-                                                <option value={item.Id} >{item.Hotel_Name}</option>
+                                                <option value={item.id} >{item.hotel_name}</option>
                                             </>
                                         )
                                     })

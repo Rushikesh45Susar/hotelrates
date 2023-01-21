@@ -65,9 +65,9 @@ const Result = () => {
               Greetings from 'Adwait Tours', your tour details are:
             </h4>
         
-            <div>No. of couples:{couples}</div>   
-            <div>Extra adult   :{adults}</div>
-            <div>No. of childs :{childs}</div>
+            <div>No. of Couples:{couples}</div>   
+            <div>Extra Adult   :{adults}</div>
+            <div>No. of Childs :{childs}</div>
             <br />
             {
                 Array.from(result).map(item =>{
@@ -81,7 +81,7 @@ const Result = () => {
                             {/* <div>&#128176;Couple charges      :&#8377;{item.couple}/-</div>
                             <div>&#128176;Extra adults charges:&#8377;{item.adult}/-</div>
                             <div>&#128176;Childs charges      :&#8377;{item.child}/-</div> */}
-                            <div>&#127857;Meal Plan  {item.meeaal}</div>
+                            <div>&#127857;Meal Plan :  {item.meeaal}</div>
                             <br />
                         </>
                     )
@@ -93,7 +93,7 @@ const Result = () => {
             <FontAwesomeIcon icon={faCar} /> Vehicle : {location.state.vehicleName}
             <br />
             <br />
-            &#128181; Total Tour Package = &#8377;{total + (0.12 * total)} /- only
+            &#128181; Total Tour Package = &#8377;{(1.12 * total)} /- only
             <br /><br />
             Thank You!
         </div>

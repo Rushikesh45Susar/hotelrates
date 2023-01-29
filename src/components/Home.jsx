@@ -99,7 +99,7 @@ const Home = () => {
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         console.log(Difference_In_Days);
         settotalDays(totalDays + Difference_In_Days) ;
-        const data = { hotel: hotels.filter(item => item.id === parseInt(hotelId)), mealplan: mealPlan, nights: Difference_In_Days , d1 : `${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}` , d2: `${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}` , city : cityName }
+        const data = { hotel: hotels.filter(item => item.id === parseInt(hotelId)), mealplan: mealPlan, nights: Difference_In_Days , d1 : `${date1.getDate()}/${date1.getMonth()+1}/${date1.getFullYear()}` , d2: `${date2.getDate()}/${date2.getMonth()+1}/${date2.getFullYear()}` , city : cityName }
         Data.push(data);
         setdate1(date2)
         setminiDate(date2);

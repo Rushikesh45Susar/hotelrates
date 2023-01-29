@@ -50,8 +50,9 @@ const Result = () => {
 
     const copytext = () => {
         var copytext = document.getElementById('copy');
-        var text = copytext.innerText ;
-        navigator.clipboard.writeText(text);
+        copytext.select();// select the input field
+        copytext.setSelectionRange(0,99999);// For mobile devices
+        navigator.clipboard.writeText( copytext.value )
         alert("Copied to Clipboard");
     }
 
